@@ -1,17 +1,14 @@
 // global variables needed
 var statesDict = {};
 var pickedState = false;
-var pickedCity = false;
+var pickedCounty = false;
 var inputLat = '';
 var inputLon = '';
 
-// retrieve search history
-var searchHistoryArr = JSON.parse(localStorage.getItem('searchHistoryArr')) || [];
-
 // get reference to the table body and the buttons
 var statesEl = document.querySelector('#states');
-var citiesEl = document.querySelector('#cities');
-var covidStatsEl = document.querySelector('#covid-stats');
+var countiesEl = document.querySelector('#counties');
+var covidStatsEl = document.querySelector('#covidStats');
 var searchHistoryEl = document.querySelector('#searchHistory');
 var filterButton = document.querySelector('#subBtn');
 var clearButton = document.querySelector('#clearBtn');
@@ -19,6 +16,21 @@ var clearButton = document.querySelector('#clearBtn');
 // utility function to display list of unique values
 var uniqueValues = ((value, index, self) => self.indexOf(value) === index);
 
+// retrieve search history
+var searchHistoryArr = JSON.parse(localStorage.getItem('searchHistoryArr')) || [];
+
+// function to populate the search history and save to local storage
+var searchHistory = () => {
+    // clear previous search history
+    searchHistoryEl.innerHTML = '';
+    // loop through searchHistoryArr to display user search history
+    searchHistoryArr.forEach(obj => {
+        var countyStateEl = document.createElement('li');
+        countyStateEl.setAttribute('class', 'list-group-item');
+        countyStateEl.textContent = `${obj.county}, ${obj.state}`;
+        searchHistoryEl.appendChild(countyStateEl);
+    });
+};
 // get data from COVID api
 var makeDropDownLists = () => {
     fetch("https://covid-19-statistics.p.rapidapi.com/reports?iso=USA", {
@@ -37,52 +49,55 @@ var makeDropDownLists = () => {
 var makeStatesDropDownList = (data) => {
     statesEl.innerHTML = '<option selected="selected" value="all">All states</option>';
     // append each state into the drop-down selection list
-    data.forEach(item => {
-        getCities(item.region.province, item.region.cities);
+    data.forEach(obj => {
+        getCounties(obj.region.province, obj.region.cities);
         var optionEl = document.createElement('option');
-        optionEl.value = item.region.province;
-        optionEl.textContent = item.region.province;
+        optionEl.value = obj.region.province;
+        optionEl.textContent = obj.region.province;
         statesEl.appendChild(optionEl);
     });
-    makeCitiesDropDownList('all');
+    makeCountiesDropDownList('all');
 };
 
-// prepare drop-down list for cities
-var makeCitiesDropDownList = (state) => {
-    var citiesToDisplay = [];
+// extract counties from a particular state and store in countiesList
+var getCounties = (state, counties) => {
+    var countiesList = [];
+    counties.forEach(county => {
+
+        countiesList.push(county.name);
+    });
+    statesDict[state] = countiesList.sort();
+};
+
+// prepare drop-down list for counties
+var makeCountiesDropDownList = (state) => {
+    var countiesToDisplay = [];
     if (state === 'all') {
-        Object.values(statesDict).forEach(citiesArray => {
-            citiesArray.forEach(city => citiesToDisplay.push(city));
+        Object.values(statesDict).forEach(countiesArray => {
+            countiesArray.forEach(county => countiesToDisplay.push(county));
         });
-        citiesToDisplay = citiesToDisplay.filter(uniqueValues).sort();
+        countiesToDisplay = countiesToDisplay.filter(uniqueValues).sort();
     } else {
-        citiesEl.innerHTML = '';
-        citiesToDisplay = statesDict[state];
+        countiesEl.innerHTML = '';
+        countiesToDisplay = statesDict[state];
     }
 
-    // append each city into the drop-down selection list
-    citiesEl.innerHTML = '<option selected="selected" value="all">All cities</option>';
-    citiesToDisplay.forEach(city => {
+    // append each county into the drop-down selection list
+    countiesEl.innerHTML = '<option selected="selected" value="all">All counties</option>';
+    countiesToDisplay.forEach(county => {
         var optionEl = document.createElement('option');
-        optionEl.value = city;
-        optionEl.textContent = city;
-        citiesEl.appendChild(optionEl);
+        optionEl.value = county;
+        optionEl.textContent = county;
+        countiesEl.appendChild(optionEl);
     });
 };
 
-// extract cities from a particular state and store in citiesList
-var getCities = (state, cities) => {
-    var citiesList = [];
-    cities.forEach(city => citiesList.push(city.name));
-    statesDict[state] = citiesList.sort();
-};
-
-// find state(s) for a selected city
-var identifyState = (citySelected) => {
+// find state(s) for a selected county
+var identifyState = (countySelected) => {
     var statesList = [];
     Object.entries(statesDict).forEach(entry => {
-        entry[1].forEach(city => {
-            if (city === citySelected) {
+        entry[1].forEach(county => {
+            if (county === countySelected) {
                 statesList.push(entry[0]);
             }
         });
@@ -90,27 +105,27 @@ var identifyState = (citySelected) => {
     return statesList;
 };
 
-// function to narrow drop down list of cities upon selection of a state
+// function to narrow drop down list of counties upon selection of a state
 var stateSelectionHandler = (event) => {
     event.preventDefault();
     pickedState = true;
     // get value from selected element
     var selectedState = statesEl.options[statesEl.selectedIndex].value;
-    // adjust drop down for cities only if user had not already selected a city
-    if (!pickedCity) {
-        makeCitiesDropDownList(selectedState);
+    // adjust drop down for counties only if user had not already selected a county
+    if (!pickedCounty) {
+        makeCountiesDropDownList(selectedState);
     }
 };
 
-// function to narrow drop down list of cities upon selection of a state
-var citySelectionHandler = (event) => {
+// function to narrow drop down list of counties upon selection of a state
+var countySelectionHandler = (event) => {
     event.preventDefault();
-    pickedCity = true;
+    pickedCounty = true;
     // get value from selected element
-    var selectedCity = citiesEl.options[citiesEl.selectedIndex].value;
+    var selectedCounty = countiesEl.options[countiesEl.selectedIndex].value;
     // adjust drop down for states only if user had not already selected a state
     if (!pickedState) {
-        var correspondingStatesArr = identifyState(selectedCity);
+        var correspondingStatesArr = identifyState(selectedCounty);
         statesEl.innerHTML = '';
         correspondingStatesArr.forEach(state => {
             var optionEl = document.createElement('option');
@@ -121,34 +136,34 @@ var citySelectionHandler = (event) => {
     }
 };
 
-// function to fetch covid data based on user selections (assuming we have only one city/state pair selected)
+// function to fetch covid data based on user selections (assuming we have only one county/state pair selected)
 var searchClickHandler = (event) => {
     event.preventDefault();
     // grab the user's filters
     var inputState = statesEl.options[statesEl.selectedIndex].value;
-    var inputCity = citiesEl.options[citiesEl.selectedIndex].value;
-    fetchCovidData(inputCity, inputState);
-    // display city and state in search history if not already there
+    var inputCounty = countiesEl.options[countiesEl.selectedIndex].value;
+    fetchCovidData(inputCounty, inputState);
+    // display county and state in search history if not already there
     var inSearchHistory = false;
     searchHistoryArr.forEach(obj => {
-        if (obj.city === inputCity && obj.state === inputState) {
+        if (obj.county === inputCounty && obj.state === inputState) {
             return inThere = true;
         }
     });
     if (!inSearchHistory) {
-        var newObj = {              // create new city/state pair
-            city: inputCity,
+        var newObj = {              // create new county/state pair
+            county: inputCounty,
             state: inputState
         }
-        searchHistoryArr.push(newObj); // add new city/state pair
+        searchHistoryArr.push(newObj); // add new county/state pair
         localStorage.setItem('searchHistoryArr', JSON.stringify(searchHistoryArr)); // save updated array
         searchHistory();   // display updated search history
     }
 };
 
-// function to fetch covid data for selected city/state pair
-var fetchCovidData = (inputCity, inputState) => {
-    fetch(`https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_province=${inputState}&city_name=${inputCity}`, {
+// function to fetch covid data for selected county/state pair
+var fetchCovidData = (inputCounty, inputState) => {
+    fetch(`https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_province=${inputState}&city_name=${inputCounty}`, {
 	    "method": "GET",
 	    "headers": {
 		    "x-rapidapi-host": "covid-19-statistics.p.rapidapi.com",
@@ -160,7 +175,7 @@ var fetchCovidData = (inputCity, inputState) => {
     .catch(err => console.log(err));
 };
 
-// function to display covid stats fectched from covid api (only one city/state pair mvp)
+// function to display covid stats fectched from covid api (only one county/state pair mvp)
 var displayCovidStats = (dataObj) => {
     // clear old content
     covidStatsEl.innerHTML = '';
@@ -201,34 +216,21 @@ var displayCovidStats = (dataObj) => {
     covidStatsEl.appendChild(fatalityRateEl);
 };
 
-// function to populate the search history and save to local storage
-var searchHistory = () => {
-    // clear previous search history
-    searchHistoryEl.innerHTML = '';
-    // loop through searchHistoryArr to display user search history
-    searchHistoryArr.forEach(obj => {
-        var cityStateEl = document.createElement('li');
-        cityStateEl.setAttribute('class', 'list-group-item');
-        cityStateEl.textContent = `${obj.city}, ${obj.state}`;
-        searchHistoryEl.appendChild(cityStateEl);
-    });
-};
-
 // function to reset drop down lists
 var clearFilters = (event) => {
     pickedState = false;
-    pickedCity = false;
+    pickedCounty = false;
     statesEl.innerHTML = '';
-    citiesEl.innerHTML = '';
+    countiesEl.innerHTML = '';
     makeDropDownLists();
 };
 
-// function to handle click on a city/state pair displayed in the search history
+// function to handle click on a county/state pair displayed in the search history
 var searchHistoryClickHandler = event => {
-    var cityState = event.target.textContent;
-    var inputCity = cityState.split(', ')[0];
-    var inputState = cityState.split(', ')[1];
-    fetchCovidData(inputCity, inputState);
+    var countyState = event.target.textContent;
+    var inputCounty = countyState.split(', ')[0];
+    var inputState = countyState.split(', ')[1];
+    fetchCovidData(inputCounty, inputState);
 }
 
 // function to clear the search history
@@ -240,7 +242,7 @@ var clearSearchHistory = () => {
 
 // event listeners
 statesEl.addEventListener('change', stateSelectionHandler);
-citiesEl.addEventListener('change', citySelectionHandler);
+countiesEl.addEventListener('change', countySelectionHandler);
 filterButton.addEventListener('click', searchClickHandler);
 clearButton.addEventListener('click', clearFilters);
 searchHistoryEl.addEventListener('click', searchHistoryClickHandler);
