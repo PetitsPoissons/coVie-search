@@ -1,0 +1,82 @@
+:root {
+    font-family: 'Ubuntu', serif;   
+}
+body {
+    background-color: #a6dcef;
+    color: black;
+}
+nav {
+    background-color: #ddf3f5;
+   
+}
+
+#logo {
+     font-family: 'Ubuntu', serif;
+     font-size: 65px;
+     text-shadow: 2px 2px 5px;
+ 
+} 
+
+
+#search  {
+    font-size: 27px;
+    font-family: 'Ubuntu', serif;
+    color: #086972;
+    font-weight: bold;
+    margin-left: 4rem;
+    text-shadow: 2px 2px 5px;
+}
+#about {
+    font-size: 27px;
+    font-family: 'Ubuntu', serif;
+    color: #086972;
+    font-weight: bold;
+    margin-left: 7rem;
+    text-shadow: 2px 2px 5px;
+}
+
+#stateCard {
+    background-color: #a6dcef;
+    border:none;
+}
+
+#historyCard {
+    
+    border:none;
+    color: black;
+}
+label {
+font-size: 22px;
+font-family: 'Ubuntu', serif;
+}
+#aboutlink h2 {
+    font-size: 27px;
+    font-family: 'Ubuntu', serif;
+    color: #086972;
+    font-weight: bold;
+    margin-left: 2rem;
+}
+#aboutlink p {
+    font-size: 18px;
+    margin-left: 1rem;
+}
+#copyright h2 {
+    font-size: 27px;
+    font-family: 'Ubuntu', serif;
+    color: #086972;
+    font-weight: bold;
+    margin-left: 2rem;
+       }
+
+#copyright p {
+    font-size: 18px;
+    margin-left: 1rem;
+}
+footer h2 {
+   text-align: center;
+   width: 100%;
+   font-size: 18px;
+   background-color: #84a9ac;
+ 
+   
+}
