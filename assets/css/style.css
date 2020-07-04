@@ -1,22 +1,21 @@
 :root {
-    font-family: 'Ubuntu', serif;   
+    --primary-color: #ddf3f5;
+    --secondary-color: #a6dcef;
+    --tertiary-color: #1b6ca8;
+    --salmon-accent-color: #f2aaaa;
+    --red-accent-color: #e36387;
+    --teal-accent-color: #086972;
 }
+
 body {
-    background-color: #a6dcef;
-    color: black;
-}
-nav {
-    background-color: #ddf3f5;
-   
+    font-family: 'Ubuntu', sans-serif;
+    background-color: var(--primary-color);
 }
 
-#logo {
-     font-family: 'Ubuntu', serif;
-     font-size: 65px;
-     text-shadow: 2px 2px 5px;
- 
-} 
-
+#subBtn {
+    background-color: var(--red-accent-color);
+    color: var(--primary-color);
+}
 
 #search  {
     font-size: 27px;
