@@ -8,7 +8,7 @@
 }
 
 body {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: var(--primary-color);
 }
 
@@ -17,6 +17,18 @@ body {
     color: var(--primary-color);
 }
 
+.more,
+.same,
+.less {
+}
+
+.table td,
+#countyTh,
+#stateTh {
+    text-align: right;
+}
+
+/*
 #search  {
     font-size: 27px;
     font-family: 'Ubuntu', serif;
@@ -78,4 +90,4 @@ footer h2 {
    background-color: #84a9ac;
  
    
-}
+}*/

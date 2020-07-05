@@ -8,7 +8,25 @@ var inputLon = '';
 // get reference to the table body and the buttons
 var statesEl = document.querySelector('#states');
 var countiesEl = document.querySelector('#counties');
-var covidStatsEl = document.querySelector('#covidStats');
+var locationSearchedEl = document.querySelector('#locationSearched');
+var lastUpdateEl = document.querySelector('#lastUpdate');
+var countyThEl = document.querySelector('#countyTh');
+var stateThEl = document.querySelector('#stateTh');
+var tbRow1El = document.querySelector('#tbRow1');
+var tbRow2El = document.querySelector('#tbRow2');
+var tbRow3El = document.querySelector('#tbRow3');
+var tbRow4El = document.querySelector('#tbRow4');
+var tbRow5El = document.querySelector('#tbRow5');
+var tbRow1CountyEl = document.querySelector('#tbRow1County');
+var tbRow2CountyEl = document.querySelector('#tbRow2County');
+var tbRow3CountyEl = document.querySelector('#tbRow3County');
+var tbRow4CountyEl = document.querySelector('#tbRow4County');
+var tbRow5CountyEl = document.querySelector('#tbRow5County');
+var tbRow1StateEl = document.querySelector('#tbRow1State');
+var tbRow2StateEl = document.querySelector('#tbRow2State');
+var tbRow3StateEl = document.querySelector('#tbRow3State');
+var tbRow4StateEl = document.querySelector('#tbRow4State');
+var tbRow5StateEl = document.querySelector('#tbRow5State');
 var searchHistoryEl = document.querySelector('#searchHistory');
 var filterButton = document.querySelector('#subBtn');
 var clearButton = document.querySelector('#clearBtn');
@@ -177,43 +195,87 @@ var fetchCovidData = (inputCounty, inputState) => {
 
 // function to display covid stats fectched from covid api (only one county/state pair mvp)
 var displayCovidStats = (dataObj) => {
-    // clear old content
-    covidStatsEl.innerHTML = '';
+    console.log('in displayCovidStats', dataObj);
     // extract lat and lon for maps purposes
     inputLat = dataObj.region.cities[0].lat;
     inputLon = dataObj.region.cities[0].long;
-    // display date
-    var dateEl = document.createElement('li');
-    dateEl.textContent = `As of: ${dataObj.region.cities[0].date}`;
-    covidStatsEl.appendChild(dateEl);
-    // display confirmed cases and diff cases
-    var confirmedCasesEl = document.createElement('li');
-    if (parseInt(dataObj.region.cities[0].confirmed_diff) > 0) {
-        confirmedCasesEl.textContent = `Confirmed cases: ${dataObj.region.cities[0].confirmed} (+${dataObj.region.cities[0].confirmed_diff} cases compared to the previous day)`;
+    // display location searched
+    locationSearchedEl.textContent = `${dataObj.region.cities[0].name} county, ${dataObj.region.province}`;
+    // display last update date
+    lastUpdateEl.textContent = `Last update: ${dataObj.region.cities[0].date}`;
+    // ppopulate table
+    countyThEl.textContent = dataObj.region.cities[0].name;
+    stateThEl.textContent = dataObj.region.province;
+    tbRow1El.textContent = '# cases';
+    tbRow2El.textContent = 'Δ cases';
+    tbRow3El.textContent = '# deaths';
+    tbRow4El.textContent = 'Δ deaths';
+    tbRow5El.textContent = 'Fatality rate';
+    // county data
+    tbRow1CountyEl.textContent = dataObj.region.cities[0].confirmed;
+    var countyCasesDiff = dataObj.region.cities[0].confirmed_diff;
+    tbRow2CountyEl.textContent = countyCasesDiff;
+    if (parseInt(countyCasesDiff) > 0) {
+        tbRow1CountyEl.setAttribute('class', 'more');
+        tbRow2CountyEl.setAttribute('class', 'more');
     }
-    else if (parseInt(dataObj.region.cities[0].confirmed_diff) === 0) {
-        confirmedCasesEl.textContent = `Confirmed cases: ${dataObj.region.cities[0].confirmed} (no new cases compared to the previous day)`;
+    else if (parseInt(countyCasesDiff) === 0) {
+        tbRow1CountyEl.setAttribute('class', 'same');
+        tbRow2CountyEl.setAttribute('class', 'same');
     }
     else {
-        confirmedCasesEl.textContent = `Confirmed cases: ${dataObj.region.cities[0].confirmed} (${dataObj.region.cities[0].confirmed_diff} cases compared to the previous day)`;
+        tbRow1CountyEl.setAttribute('class', 'less');
+        tbRow2CountyEl.setAttribute('class', 'less');
     }
-    covidStatsEl.appendChild(confirmedCasesEl);
-    // display deaths and diff deaths
-    var deathsEl = document.createElement('li');
-    if (parseInt(dataObj.region.cities[0].deaths_diff) > 0) {
-        deathsEl.textContent = `Deaths: ${dataObj.region.cities[0].deaths} (+${dataObj.region.cities[0].deaths_diff} deaths compared to the previous day)`;
+    tbRow3CountyEl.textContent = dataObj.region.cities[0].deaths;
+    var countyDeathsDiff = parseInt(dataObj.region.cities[0].deaths_diff);
+    tbRow4CountyEl.textContent = countyDeathsDiff;
+    if (countyDeathsDiff > 0) {
+        tbRow3CountyEl.setAttribute('class', 'more');
+        tbRow4CountyEl.setAttribute('class', 'more');
     }
-    else if (parseInt(dataObj.region.cities[0].deaths_diff) === 0) {
-        deathsEl.textContent = `Deaths: ${dataObj.region.cities[0].deaths} (no new deaths compared to the previous day)`;
+    else if (countyDeathsDiff === 0) {
+        tbRow3CountyEl.setAttribute('class', 'same');
+        tbRow4CountyEl.setAttribute('class', 'same');
     }
     else {
-        deathsEl.textContent = `Deaths: ${dataObj.region.cities[0].deaths} (${dataObj.region.cities[0].deaths_diff} deaths compared to the previous day)`;
+        tbRow3CountyEl.setAttribute('class', 'less');
+        tbRow4CountyEl.setAttribute('class', 'less');
     }
-    covidStatsEl.appendChild(deathsEl);
-    // display date
-    var fatalityRateEl = document.createElement('li');
-    fatalityRateEl.textContent = `Fatality rate in ${dataObj.region.province}: ${dataObj.fatality_rate}`;
-    covidStatsEl.appendChild(fatalityRateEl);
+    // state data
+    tbRow1StateEl.textContent = dataObj.confirmed;
+    var stateCasesDiff = parseInt(dataObj.confirmed_diff);
+    tbRow2StateEl.textContent = stateCasesDiff;
+    if (stateCasesDiff > 0) {
+        tbRow1StateEl.setAttribute('class', 'more');
+        tbRow2StateEl.setAttribute('class', 'more');
+    }
+    else if (stateCasesDiff === 0) {
+        tbRow1StateEl.setAttribute('class', 'same');
+        tbRow2StateEl.setAttribute('class', 'same');
+    }
+    else {
+        tbRow1StateEl.setAttribute('class', 'less');
+        tbRow2StateEl.setAttribute('class', 'less');
+    }
+    tbRow3StateEl.textContent = dataObj.deaths;
+    var stateDeathsDiff = dataObj.deaths_diff;
+    tbRow4StateEl.textContent = stateDeathsDiff;
+    if (parseInt(stateDeathsDiff) > 0) {
+        tbRow3StateEl.setAttribute('class', 'more');
+        tbRow4StateEl.setAttribute('class', 'more');
+    }
+    else if (parseInt(countyDeathsDiff) === 0) {
+        tbRow3StateEl.setAttribute('class', 'same');
+        tbRow4StateEl.setAttribute('class', 'same');
+    }
+    else {
+        tbRow3StateEl.setAttribute('class', 'less');
+        tbRow4StateEl.setAttribute('class', 'less');
+    }
+    var fatalityRateCounty = parseInt(dataObj.region.cities[0].deaths) / parseInt(dataObj.region.cities[0].confirmed);
+    tbRow5CountyEl.textContent = `${(fatalityRateCounty * 100).toFixed(2)} %`;
+    tbRow5StateEl.textContent = `${(dataObj.fatality_rate * 100).toFixed(2)} %`;
 };
 
 // function to reset drop down lists

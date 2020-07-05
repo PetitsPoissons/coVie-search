@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- Fonts and icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css"/>
     
@@ -58,17 +58,54 @@
                     <p>LATEST GUIDELINES FROM THE CDC ... + VIRUS IMG</p>
                 </div>
                 <div class="row d-block mx-auto">
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-6">
                         <div class="card bg-transparent border-0">
                             <div class="card-body mt-0">
-                                <h3 class="card-title mt-0" id="locationSearched"></h3>
-                                <div id="currentData">
-                                    <ul id="covidStats"></ul>
+                                <h5 class="card-title mt-0" id="locationSearched"></h5>
+                                <h6 class="card-subtitle mb-2 text-muted" id="lastUpdate"></h6>
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-sm">
+                                        <!-- caption>Most recent covid-19 stats for the county and state searched</caption-->
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col" id="countyTh"></th>
+                                                <th scope="col" id="stateTh"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row" id="tbRow1" data-toggle="tooltip" data-placement="bottom" title="total nb of cases so far"></th>
+                                                <td id="tbRow1County"></td>
+                                                <td id="tbRow1State"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" id="tbRow2" data-toggle="tooltip" data-placement="bottom" title="nb more (less) cases from the previous day"></th>
+                                                <td id="tbRow2County"></td>
+                                                <td id="tbRow2State"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" id="tbRow3" data-toggle="tooltip" data-placement="bottom" title="total nb of deaths so far"></th>
+                                                <td id="tbRow3County"></td>
+                                                <td id="tbRow3State"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" id="tbRow4" data-toggle="tooltip" data-placement="bottom" title="nb more (less) deaths from the previous day"></th>
+                                                <td id="tbRow4County"></td>
+                                                <td id="tbRow4State"></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" id="tbRow5"></th>
+                                                <td id="tbRow5County"></td>
+                                                <td id="tbRow5State"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-8">
+                    <div class="col-12 col-md-6">
                         <div class="card bg-transparent border-0">
                             <div class="card-body mt-0">
                                 <div id="graph-container"></div>
