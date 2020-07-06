@@ -19,6 +19,7 @@ body {
 #right-panel {
   line-height: 30px;
   padding-left: 10px;
+  visibility: hidden;
 }
 
 #right-panel select,

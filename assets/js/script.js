@@ -30,6 +30,7 @@ var tbRow5StateEl = document.querySelector('#tbRow5State');
 var searchHistoryEl = document.querySelector('#searchHistory');
 var filterButton = document.querySelector('#subBtn');
 var clearButton = document.querySelector('#clearBtn');
+var iframeMapEl = document.querySelector('#iframeMap');
 
 // utility function to display list of unique values
 var uniqueValues = ((value, index, self) => self.indexOf(value) === index);
@@ -199,6 +200,8 @@ var displayCovidStats = (dataObj) => {
     // extract lat and lon for maps purposes
     inputLat = dataObj.region.cities[0].lat;
     inputLon = dataObj.region.cities[0].long;
+    console.log(inputLat, inputLon);
+    iframeMapEl.setAttribute('src', 'maps.html?lat='+ inputLat + '&lon=' + inputLon );
     // display location searched
     locationSearchedEl.textContent = `${dataObj.region.cities[0].name} county, ${dataObj.region.province}`;
     // display last update date

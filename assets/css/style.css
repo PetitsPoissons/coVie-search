@@ -28,6 +28,13 @@ body {
     text-align: right;
 }
 
+#lastUpdate {
+    color: var(--primary-color);
+}
+
+.list-group-item:hover {
+    cursor: pointer;
+}
 /*
 #search  {
     font-size: 27px;
