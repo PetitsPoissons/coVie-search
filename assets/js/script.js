@@ -9,25 +9,6 @@ var plotData = [];
 // get reference to the table body and the buttons
 var statesEl = document.querySelector('#states');
 var countiesEl = document.querySelector('#counties');
-var locationSearchedEl = document.querySelector('#locationSearched');
-var lastUpdateEl = document.querySelector('#lastUpdate');
-var countyThEl = document.querySelector('#countyTh');
-var stateThEl = document.querySelector('#stateTh');
-var tbRow1El = document.querySelector('#tbRow1');
-var tbRow2El = document.querySelector('#tbRow2');
-var tbRow3El = document.querySelector('#tbRow3');
-var tbRow4El = document.querySelector('#tbRow4');
-var tbRow5El = document.querySelector('#tbRow5');
-var tbRow1CountyEl = document.querySelector('#tbRow1County');
-var tbRow2CountyEl = document.querySelector('#tbRow2County');
-var tbRow3CountyEl = document.querySelector('#tbRow3County');
-var tbRow4CountyEl = document.querySelector('#tbRow4County');
-var tbRow5CountyEl = document.querySelector('#tbRow5County');
-var tbRow1StateEl = document.querySelector('#tbRow1State');
-var tbRow2StateEl = document.querySelector('#tbRow2State');
-var tbRow3StateEl = document.querySelector('#tbRow3State');
-var tbRow4StateEl = document.querySelector('#tbRow4State');
-var tbRow5StateEl = document.querySelector('#tbRow5State');
 var searchHistoryEl = document.querySelector('#searchHistory');
 var filterButton = document.querySelector('#subBtn');
 var clearButton = document.querySelector('#clearBtn');
@@ -190,12 +171,12 @@ var fetchCovidData = (inputCounty, inputState) => {
 	    }
     })
     .then(response => response.json())
-    .then(res => displayCovidStats(res.data[0]))
+    .then(res => displayCovidTable(res.data[0]))
     .catch(err => console.log(err));
 };
 
-// function to display covid stats fectched from covid api (only one county/state pair mvp)
-var displayCovidStats = (dataObj) => {
+/*/ function to display covid stats fectched from covid api (only one county/state pair mvp)
+var displayCovidTable = (dataObj) => {
     // extract lat and lon for maps purposes
     inputLat = dataObj.region.cities[0].lat;
     inputLon = dataObj.region.cities[0].long;
@@ -278,6 +259,7 @@ var displayCovidStats = (dataObj) => {
     tbRow5CountyEl.textContent = `${(fatalityRateCounty * 100).toFixed(2)} %`;
     tbRow5StateEl.textContent = `${(dataObj.fatality_rate * 100).toFixed(2)} %`;
 };
+*/
 
 // function to reset drop down lists
 var clearFilters = (event) => {

@@ -56,58 +56,14 @@
             <!-- Covid stuff column -->
             <div class="col-12 col-md-9">
                 <!-- Covid general info column -->
-                <div class="row mt-3 mb-5 ml-auto" id="cdcInfo">
+                <div class="row mt-3 mb-4 ml-auto" id="cdcInfo">
                     <h5>Key Updates for Week 26, ending June 27, 2020</h5>
                     <p>Nationally, levels of influenza-like illness (ILI) and COVID-19-like illness (CLI) activity remain lower than peaks seen in March and April but are increasing in most regions. The percentage of specimens testing positive for SARS-CoV-2, the virus that causes COVID-19, also increased from last week.  Mortality attributed to COVID-19 decreased compared to last week and is currently at the epidemic threshold but will likely increase as additional death certificates are processed.</p>
                 </div>
                 <!-- Covid results row -->
                 <div class="row mx-auto">
                     <div class="col-12 col-md-6">
-                        <div class="card bg-transparent border-0">
-                            <div class="card-body mt-0 bg-info">
-                                <h5 class="card-title mt-4 mb-4" id="locationSearched"></h5>
-                                <h6 class="card-subtitle mb-4" id="lastUpdate"></h6>
-                                <div class="table-responsive mb-3">
-                                    <table class="table table-hover table-sm">
-                                        <!-- caption>Most recent covid-19 stats for the county and state searched</caption-->
-                                        <thead>
-                                            <tr>
-                                                <th scope="col"></th>
-                                                <th scope="col" id="countyTh"></th>
-                                                <th scope="col" id="stateTh"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row" id="tbRow1" data-toggle="tooltip" data-placement="bottom" title="total nb of cases so far"></th>
-                                                <td id="tbRow1County"></td>
-                                                <td id="tbRow1State"></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" id="tbRow2" data-toggle="tooltip" data-placement="bottom" title="nb more (less) cases from the previous day"></th>
-                                                <td id="tbRow2County"></td>
-                                                <td id="tbRow2State"></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" id="tbRow3" data-toggle="tooltip" data-placement="bottom" title="total nb of deaths so far"></th>
-                                                <td id="tbRow3County"></td>
-                                                <td id="tbRow3State"></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" id="tbRow4" data-toggle="tooltip" data-placement="bottom" title="nb more (less) deaths from the previous day"></th>
-                                                <td id="tbRow4County"></td>
-                                                <td id="tbRow4State"></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" id="tbRow5"></th>
-                                                <td id="tbRow5County"></td>
-                                                <td id="tbRow5State"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        <div id="tableResults" class="card bg-transparent border-0"></div>
                     </div>
                     <div class="col-12 col-md-6 m-0 p-0">
                         <div class="bg-transparent m-0 p-0 border-0">
@@ -140,6 +96,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="assets/js/table.js"></script>
     <script src="assets/js/plot.js"></script>
     <script src="assets/js/maps.js"></script>
   </body>
