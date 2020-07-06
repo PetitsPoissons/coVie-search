@@ -3,15 +3,12 @@
     var url = new URL(window.location)
     var lat = url.searchParams.get('lat');
     var lon = url.searchParams.get('lon');
-    console.log(url);
-    console.log(lat, lon);
     var coord;
     if (lat && lon) {
         coord = {
             lat: Number(lat),
             lng: Number(lon),
         };
-        console.log(coord);
     } else {
         // los angeles is default
         coord = {

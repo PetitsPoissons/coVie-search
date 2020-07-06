@@ -35,6 +35,11 @@ body {
 .list-group-item:hover {
     cursor: pointer;
 }
+
+#plot {
+    /*width: 100%;*/
+    height: 400px;
+}
 /*
 #search  {
     font-size: 27px;

@@ -4,6 +4,7 @@ var pickedState = false;
 var pickedCounty = false;
 var inputLat = '';
 var inputLon = '';
+var plotData = [];
 
 // get reference to the table body and the buttons
 var statesEl = document.querySelector('#states');
@@ -30,6 +31,7 @@ var tbRow5StateEl = document.querySelector('#tbRow5State');
 var searchHistoryEl = document.querySelector('#searchHistory');
 var filterButton = document.querySelector('#subBtn');
 var clearButton = document.querySelector('#clearBtn');
+var plotEl = document.querySelector('#plot');
 var iframeMapEl = document.querySelector('#iframeMap');
 
 // utility function to display list of unique values
@@ -81,10 +83,7 @@ var makeStatesDropDownList = (data) => {
 // extract counties from a particular state and store in countiesList
 var getCounties = (state, counties) => {
     var countiesList = [];
-    counties.forEach(county => {
-
-        countiesList.push(county.name);
-    });
+    counties.forEach(county => countiesList.push(county.name));
     statesDict[state] = countiesList.sort();
 };
 
@@ -182,6 +181,7 @@ var searchClickHandler = (event) => {
 
 // function to fetch covid data for selected county/state pair
 var fetchCovidData = (inputCounty, inputState) => {
+    fetchPlotData(inputCounty, inputState);
     fetch(`https://covid-19-statistics.p.rapidapi.com/reports?iso=USA&region_province=${inputState}&city_name=${inputCounty}`, {
 	    "method": "GET",
 	    "headers": {
@@ -196,12 +196,10 @@ var fetchCovidData = (inputCounty, inputState) => {
 
 // function to display covid stats fectched from covid api (only one county/state pair mvp)
 var displayCovidStats = (dataObj) => {
-    console.log('in displayCovidStats', dataObj);
     // extract lat and lon for maps purposes
     inputLat = dataObj.region.cities[0].lat;
     inputLon = dataObj.region.cities[0].long;
-    console.log(inputLat, inputLon);
-    iframeMapEl.setAttribute('src', 'maps.html?lat='+ inputLat + '&lon=' + inputLon );
+    iframeMapEl.setAttribute('src', 'maps.html?lat='+ inputLat + '&lon=' + inputLon);
     // display location searched
     locationSearchedEl.textContent = `${dataObj.region.cities[0].name} county, ${dataObj.region.province}`;
     // display last update date
