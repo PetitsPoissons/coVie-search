@@ -58,8 +58,7 @@ var displayPlot = () => {
         line: {
             color: 'rgb(91, 192, 222)',
             width: 3
-        },
-        connectgaps: true
+          },
     };
     var trace2 = {
         name: '# deaths',
@@ -67,10 +66,9 @@ var displayPlot = () => {
         y: deaths,
         mode: 'lines',
         line: {
-            color: 'rgb(217, 83, 79)/', //#e36387',
+            color: 'rgb(217, 83, 79)',
             width: 3
-        },
-        connectgaps: true
+          }
     }
 
     // create the data array for the plot
@@ -78,19 +76,25 @@ var displayPlot = () => {
 
     // define the plot layout
     var layout = {
-        showlegend: true,
         xaxis: {
-            showline: false,
+            title: '30-DAY TREND',
             showgrid: false,
-            showticklabels: false
-        },
-        yaxis: {
+            zeroline: false,
             showline: false
         },
-        margin: {
+        yaxis: {
+            showline: false,
+            gridcolor: '#ffffff'
+        },
+        legend: {
+            x: 0,
+            y: 1.2,
+            orientation: 'h'
+        },
+                margin: {
             l: 50,
             r: 0,
-            b: 0,
+            b: 50,
             t: 0,
             pad: 4
         },
