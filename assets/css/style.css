@@ -1,7 +1,7 @@
 :root {
     --primary-color: #ddf3f5;
     --secondary-color: #a6dcef;
-    --tertiary-color: #1b6ca8;
+    --tertiary-color: rgb(91, 192, 222);
     --salmon-accent-color: #f2aaaa;
     --red-accent-color: #e36387;
     --teal-accent-color: #086972;
@@ -17,38 +17,19 @@ body {
     color: var(--primary-color);
 }
 
-.more,
-.same,
-.less {
-}
-
-.table td,
-#countyTh,
-#stateTh {
-    text-align: right;
-}
-
-#lastUpdate {
-    color: var(--primary-color);
-}
-
 .list-group-item:hover {
     cursor: pointer;
 }
 
-#plot {
-    /*width: 100%;*/
-    height: 400px;
+#tableResults h6 {
+    color: var(--primary-color);
 }
-/*
-#search  {
-    font-size: 27px;
-    font-family: 'Ubuntu', serif;
-    color: #086972;
-    font-weight: bold;
-    margin-left: 4rem;
-    text-shadow: 2px 2px 5px;
+
+.table td,
+.table th {
+    text-align: right;
 }
+
 #about {
     font-size: 27px;
     font-family: 'Ubuntu', serif;
@@ -56,21 +37,6 @@ body {
     font-weight: bold;
     margin-left: 7rem;
     text-shadow: 2px 2px 5px;
-}
-
-#stateCard {
-    background-color: #a6dcef;
-    border:none;
-}
-
-#historyCard {
-    
-    border:none;
-    color: black;
-}
-label {
-font-size: 22px;
-font-family: 'Ubuntu', serif;
 }
 #aboutlink h2 {
     font-size: 27px;
@@ -100,6 +66,4 @@ footer h2 {
    width: 100%;
    font-size: 18px;
    background-color: #84a9ac;
- 
-   
-}*/
+}

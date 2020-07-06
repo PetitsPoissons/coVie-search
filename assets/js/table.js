@@ -1,22 +1,4 @@
-var countyThEl = document.querySelector('#countyTh');
-var stateThEl = document.querySelector('#stateTh');
-var tbRow1El = document.querySelector('#tbRow1');
-var tbRow2El = document.querySelector('#tbRow2');
-var tbRow3El = document.querySelector('#tbRow3');
-var tbRow4El = document.querySelector('#tbRow4');
-var tbRow5El = document.querySelector('#tbRow5');
-var tbRow1CountyEl = document.querySelector('#tbRow1County');
-var tbRow2CountyEl = document.querySelector('#tbRow2County');
-var tbRow3CountyEl = document.querySelector('#tbRow3County');
-var tbRow4CountyEl = document.querySelector('#tbRow4County');
-var tbRow5CountyEl = document.querySelector('#tbRow5County');
-var tbRow1StateEl = document.querySelector('#tbRow1State');
-var tbRow2StateEl = document.querySelector('#tbRow2State');
-var tbRow3StateEl = document.querySelector('#tbRow3State');
-var tbRow4StateEl = document.querySelector('#tbRow4State');
-var tbRow5StateEl = document.querySelector('#tbRow5State');
 var tableResultsEl = document.querySelector('#tableResults');
-console.log('tableResultsEl', tableResultsEl);
 
 var displayCovidTable = (dataObj) => {
     // extract lat and lon for maps purposes
@@ -44,10 +26,10 @@ var displayCovidTable = (dataObj) => {
     divEl.setAttribute('class', 'table-responsive mb-3');
     var tableEl = document.createElement('div');
     tableEl.setAttribute('class', 'table table-hover table-sm');
-    /*/ caption
+    // caption
     var captionEl = document.createElement('caption');
     captionEl.textContent = 'Source: John Hopkins ...';
-    tableEl.appendChild(captionEl);*/
+    tableEl.appendChild(captionEl);
     // table head
     var tableHeadEl = document.createElement('thead');
     var tHeadTrEl = document.createElement('tr');
