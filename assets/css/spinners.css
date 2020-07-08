@@ -1,0 +1,113 @@
+
+#spinnerTable {
+    visibility: hidden;
+    width: 80px;
+    height: 80px;
+  
+    border: 2px solid #f3f3f3;
+    border-top:3px solid #f25a41;
+    border-radius: 100%;
+  
+    position: absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin: auto;
+  
+    animation: spin 1s infinite linear;
+  }
+
+  #spinnerPlot {
+    visibility: hidden;
+    width: 80px;
+    height: 80px;
+  
+    border: 5px solid #f3f3f3;
+    border-top:5px solid #f25a41;
+    border-radius: 100%;
+  
+    position: flex;
+    top:0;
+    bottom:0;
+    left:0;
+    right: 0;
+    margin: auto;
+  
+    animation: spin 1s infinite linear;
+  }
+  
+  @keyframes spin {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
+    }
+  }
+  
+  #spinnerTable.show {
+    visibility: visible;
+  }
+
+  #spinnerPlot.show {
+    visibility: visible;
+  }
+/*
+
+.spinnerTable:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    border-radius: 50%;
+    border: 3px solid lightgray;
+    border-top-color: coral;
+    animation: spinner 0.7s linear infinite;
+  }
+  
+
+  .spinnerPlot:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    border-top-color: coral;
+    border-bottom-color: coral;
+    animation: spinner 0.7s ease infinite;
+  }
+  
+
+  .spinner-3:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    border-radius: 50%;
+    border-top: 2px solid coral;
+    border-right: 2px solid transparent;
+    animation: spinner 0.7s linear infinite;
+  }
+  
+  @keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  */

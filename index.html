@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./assets/css/style.css"/>
-    
+    <link rel="stylesheet" href="./assets/css/spinners.css"/>
     <title>CoVie SEARCH</title>
 </head>
 
@@ -56,17 +56,19 @@
             <!-- Covid stuff column -->
             <div class="col-12 col-md-9">
                 <!-- Covid general info column -->
-                <div class="row mt-3 mb-4 ml-auto" id="cdcInfo">
+                <div class="row mt-3 mb-4 ml-auto">
                     <h5>Key Updates for Week 26, ending June 27, 2020</h5>
                     <p>Nationally, levels of influenza-like illness (ILI) and COVID-19-like illness (CLI) activity remain lower than peaks seen in March and April but are increasing in most regions. The percentage of specimens testing positive for SARS-CoV-2, the virus that causes COVID-19, also increased from last week.  Mortality attributed to COVID-19 decreased compared to last week and is currently at the epidemic threshold but will likely increase as additional death certificates are processed.</p>
                 </div>
                 <!-- Covid results row -->
                 <div class="row mx-auto">
                     <div class="col-12 col-md-6">
+                        <div id="spinnerTable"></div>
                         <div id="tableResults" class="card bg-transparent border-0"></div>
                     </div>
                     <div class="col-12 col-md-6 m-0 p-0">
                         <div class="bg-transparent m-0 p-0 border-0">
+                            <div id="spinnerPlot"></div>
                             <div id="plot" class="bg-transparent m-0 p-0"></div>
                         </div>
                     </div>
@@ -74,6 +76,7 @@
             </div>
         </div>
         <!-- Google map section -->
+        <!--
         <div class="row mt-5">
             <div class="col-md-12">
                 <div id="map">
@@ -81,6 +84,7 @@
                 </div>
             </div>
         </div>
+        -->
     </main>
     <footer>
       <h2>&copy; 2020 Hot Stuff</h2>
@@ -98,6 +102,6 @@
     <script src="assets/js/script.js"></script>
     <script src="assets/js/table.js"></script>
     <script src="assets/js/plot.js"></script>
-    <script src="assets/js/maps.js"></script>
+    <!--script src="assets/js/maps.js"></script-->
   </body>
 </html>

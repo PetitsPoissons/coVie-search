@@ -18,6 +18,15 @@ var iframeMapEl = document.querySelector('#iframeMap');
 // utility function to display list of unique values
 var uniqueValues = ((value, index, self) => self.indexOf(value) === index);
 
+// utility functions for the spinners
+function showSpinner(spinnerName) {
+    spinnerName.className = "show";
+  }
+  
+function hideSpinner(spinnerName) {
+    spinnerName.className = spinnerName.className.replace("show", "");
+}
+
 // retrieve search history
 var searchHistoryArr = JSON.parse(localStorage.getItem('searchHistoryArr')) || [];
 

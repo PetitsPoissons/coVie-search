@@ -1,5 +1,8 @@
+var spinnerPlotEl = document.querySelector('#spinnerPlot');
+
 // function to fetch data for the plot
 var fetchPlotData = (inputCounty, inputState) => {
+    showSpinner(spinnerPlotEl);
     plotData = [];
     var date = '';
     for (var i=1; i<31; i++) {
@@ -14,7 +17,9 @@ var fetchPlotData = (inputCounty, inputState) => {
 	        }
         })
         .then(response => response.json())
-        .then(res => savePlotData(res))
+        .then(res => {
+            savePlotData(res);
+        })
         .catch(err => console.log(err));
     }
 };
@@ -110,6 +115,8 @@ var displayPlot = () => {
         displayModeBar: false
     };
 
+    // hide the spinner
+    hideSpinner(spinnerPlotEl);
     // display the chart
     Plotly.newPlot('plot', data, layout, config);
 };
